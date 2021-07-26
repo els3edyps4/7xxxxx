@@ -38,16 +38,6 @@
       position: relative;
     }
 
-    #website > footer {
-      background-color: var(--background-color-1);
-      border-color: var(--border-color);
-      border-style: solid none none;
-      border-width: 1px;
-      display: none;
-      grid-area: bottom;
-      padding: 8px 0 0 8px;
-    }
-
     /* Header */
 
     #title {
@@ -367,16 +357,7 @@
                 <option value="1">Underlined text</option>
                 <option value="2">Buttons</option>
               </select><br>
-              <label for="select_color_scheme">Color scheme:</label>
-              <select id="select_color_scheme" onchange="setColorScheme(this.value)">
-                <option value="cappuccino">Cappuccino</option>
-                <option value="gray">Gray</option>
-                <option value="lavender">Lavender</option>
-                <option value="usa">Old Glory</option>
-                <option value="midnightblue">Retro Blues</option>
-                <option value="rojigualda">Spain</option>
-                <option value="wheat">Wheat & Wood</option>
-                <option value="wildberry">Wildberry</option>
+              
               </select>
             </div>
             <button onclick="restoreDefaultSettings()" style="width: 100%">Restore default settings</button>
@@ -384,11 +365,11 @@
         </div>
       </div>
       <!-- Custom payload options -->
-      <div class="tab" id="tab_custom_payloads" style="border-style: solid none none solid; bottom: 0; top: initial">
+      <div main="tab" id="tab_custom_payloads" style="border-style: solid none none solid; bottom: 0; top: initial">
         <!-- Custom payload chains -->
-        <div style="padding: 8px">
+        <div style="padding: 25px">
           <div style="font-size: large; font-weight: bold">Custom payload chains</div>
-          <div class="tab_option_group" style="text-align: left">
+          <div main="tab_option_group" style="text-align: left">
             <table>
               <tr>
                 <th></th>
@@ -1202,54 +1183,8 @@ function loadJailbreakHistory() {
   let jailbreak_history_output = jailbreak_history.join("<br>"); // Adding linebreaks
   document.getElementById("historylog").innerHTML = jailbreak_history_output;
   if (jailbreak_history_output.includes("*")) {
-    document.getElementById("historylog").innerHTML += "<br><br>*No feedback from payload.";
-  }
-}
+    document.getElementById("historylog").innerHTML += "<br><br>*No feedback from payload."
 
-/* WALLPAPERS
-------------- */
-
-// Loads a wallpaper and displays it
-function loadWallpaper(imageUrl) {
-  if (imageUrl == "cache") {
-    imageUrl = localStorage.getItem("wallpaper_cache");
-    if (imageUrl === null) {
-      disableWallpaperMode();
-      return false;
-    }
-  } else {
-    if (!imageUrl.startsWith("wallpapers")) {
-      imageUrl = atob(imageUrl);
-    }
-    var image = new Image();
-    image.src = imageUrl;
-    image.onerror = function() {
-      disableWallpaperMode();
-    }
-  }
-  document.body.style.backgroundImage = "url(" + imageUrl + ")";
-  return true;
-}
-
-// Hides various elements/changes their opacity for optimum wallpaper experience, and sets a wallpaper
-function enableWallpaperMode(imageUrl) {
-  if (loadWallpaper(imageUrl) === true) {
-    document.body.style.backgroundSize = "cover";
-    document.querySelector(".credits" + ".fw" + targetFirmware.replace(".", "")).style.display = "none";
-    document.getElementById("website").style.opacity = "0.85";
-    document.getElementById("instructions").style.display = "none";
-    document.querySelector("main").style.backgroundColor = "transparent";
-  }
-}
-
-// Removes the wallpaper and resets the website's looks to default
-function disableWallpaperMode() {
-  document.getElementById("instructions").style.display = "block";
-  document.getElementById("website").style.opacity = "1.0";
-  document.querySelector(".credits" + ".fw" + targetFirmware.replace(".", "")).style.display = "block";
-  document.body.style.backgroundImage = "none";
-  document.querySelector("main").style.backgroundColor = "var(--background-color-2)";
-}
 
 /* STARTUP
 ---------- */
